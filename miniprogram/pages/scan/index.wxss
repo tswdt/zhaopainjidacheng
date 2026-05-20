@@ -1,33 +1,35 @@
 .scan-header {
-  padding: 48rpx var(--spacing-page) 24rpx;
-  background: var(--bg-card);
+  padding: 48rpx 32rpx 24rpx;
+  background: #FFFFFF;
 }
 
 .scan-title {
   font-size: 22px;
   font-weight: 800;
-  color: var(--text-primary);
+  color: #111827;
 }
 
 .scan-subtitle {
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
+  font-size: 12px;
+  color: #8A94A6;
   margin-top: 8rpx;
 }
 
 .scan-grid {
   display: flex;
   flex-wrap: wrap;
-  padding: 24rpx var(--spacing-page) 0;
-  gap: var(--spacing-card-gap);
+  padding: 24rpx 32rpx 0;
+  column-gap: 20rpx;
+  row-gap: 20rpx;
 }
 
 .scan-card {
-  width: calc(50% - 10rpx);
-  background: var(--bg-card);
-  border-radius: var(--radius-card);
+  width: 323rpx;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border-radius: 20rpx;
   padding: 32rpx 24rpx;
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
   transition: opacity 0.15s;
 }
 
@@ -41,33 +43,35 @@
 }
 
 .scan-card-name {
-  font-size: var(--font-size-md);
+  font-size: 15px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #111827;
   margin-bottom: 4rpx;
 }
 
 .scan-card-desc {
-  font-size: var(--font-size-xs);
-  color: var(--text-secondary);
+  font-size: 11px;
+  color: #8A94A6;
 }
 
 .quick-grid {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 var(--spacing-page);
-  gap: var(--spacing-card-gap);
+  padding: 0 32rpx;
+  column-gap: 20rpx;
+  row-gap: 20rpx;
 }
 
 .quick-card {
-  width: calc(33.33% - 14rpx);
-  background: var(--bg-card);
-  border-radius: var(--radius-card);
+  width: 323rpx;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border-radius: 20rpx;
   padding: 24rpx 16rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
   transition: opacity 0.15s;
 }
 
@@ -87,8 +91,8 @@
 }
 
 .quick-name {
-  font-size: var(--font-size-sm);
+  font-size: 12px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #111827;
   text-align: center;
 }

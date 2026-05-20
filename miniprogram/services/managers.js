@@ -26,7 +26,16 @@ const taskManager = {
       outputSchemaKey: s.outputSchemaKey,
       extractorPromptKey: s.extractorPromptKey,
       routeMode: null,
-      userRouteChoice: null
+      userRouteChoice: null,
+      promptPayload: null,
+      rawResponse: '',
+      validationValid: false,
+      validationErrors: [],
+      repairApplied: false,
+      modelProvider: '',
+      modelName: '',
+      pipelineStatus: '',
+      errorMessage: ''
     };
     this.tasks.push(t);
     return t;
@@ -34,7 +43,7 @@ const taskManager = {
   updateTaskStatus(id, s) { const t = this.tasks.find(x => x.taskId === id); if (t) t.status = s; return t; },
   updateTaskProgress(id, p) { const t = this.tasks.find(x => x.taskId === id); if (t) t.progress = p; return t; },
   setTaskResult(id, r) { const t = this.tasks.find(x => x.taskId === id); if (t) { t.result = r; t.status = 'done'; t.progress = 100; } return t; },
-  setTaskFailed(id, e) { const t = this.tasks.find(x => x.taskId === id); if (t) { t.status = 'failed'; t.result = { error: e }; } return t; },
+  setTaskFailed(id, e) { const t = this.tasks.find(x => x.taskId === id); if (t) { t.status = 'failed'; t.result = { error: e }; t.errorMessage = String(e || ''); } return t; },
   getTask(id) { return this.tasks.find(x => x.taskId === id); }
 };
 
@@ -61,10 +70,24 @@ const reportManager = {
       icon: s ? s.icon : '📄',
       iconBg: s ? s.iconBg : '#F1F3F5',
       status: task.status,
+      routeResult: task.routeResult || null,
+      detectedSceneId: task.detectedSceneId || null,
+      selectedSceneId: task.selectedSceneId || task.sceneId,
+      confidence: task.confidence || 0,
+      needUserConfirm: !!task.needUserConfirm,
+      routeMode: task.routeMode || null,
+      userRouteChoice: task.userRouteChoice || null,
       outputSchemaKey: task.outputSchemaKey,
       extractorPromptKey: task.extractorPromptKey,
-      validationValid: validation.valid,
-      validationErrors: validation.errors || []
+      promptPayload: task.promptPayload || null,
+      rawResponse: task.rawResponse || '',
+      validationValid: typeof task.validationValid === 'boolean' ? task.validationValid : validation.valid,
+      validationErrors: task.validationErrors && task.validationErrors.length ? task.validationErrors : (validation.errors || []),
+      repairApplied: !!task.repairApplied,
+      modelProvider: task.modelProvider || 'mock',
+      modelName: task.modelName || 'mock-visual-model-v1',
+      pipelineStatus: task.pipelineStatus || '',
+      errorMessage: task.errorMessage || ''
     };
     this.reports.unshift(r);
     task.reportId = r.reportId;

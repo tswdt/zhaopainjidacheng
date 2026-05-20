@@ -1,0 +1,12 @@
+<view class="page">
+  <view class="processing-container">
+    <view class="processing-spinner" wx:if="{{!done}}"></view>
+    <view class="processing-icon" wx:if="{{done}}">✅</view>
+    <view class="processing-title">{{progressText}}</view>
+    <view class="processing-desc">{{stepText}}</view>
+    <view class="progress-bar-wrap">
+      <view class="progress-bar-fill" style="width:{{progress}}%"></view>
+    </view>
+    <view class="processing-tip" wx:if="{{!done}}">处理过程中请勿关闭页面</view>
+  </view>
+</view>

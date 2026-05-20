@@ -1,0 +1,15 @@
+<view class="scene-card card" bindtap="onCardTap">
+  <view class="scene-header">
+    <view class="scene-icon" style="background: {{scene.bgColor}}">
+      <t-icon name="{{scene.icon}}" size="40rpx" color="#171717" />
+    </view>
+    <view class="scene-count">
+      <text class="count-text">{{scene.count}}个功能</text>
+    </view>
+  </view>
+  <text class="scene-title">{{scene.title}}</text>
+  <text class="scene-desc">{{scene.desc}}</text>
+  <view class="scene-tags">
+    <text wx:for="{{scene.tags}}" wx:key="*this" wx:for-item="tag" class="tag tag-accent">{{tag}}</text>
+  </view>
+</view>

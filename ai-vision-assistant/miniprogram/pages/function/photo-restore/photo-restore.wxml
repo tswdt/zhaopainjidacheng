@@ -1,0 +1,79 @@
+<view class="page-function">
+  <view class="step-indicator">
+    <view class="step {{step >= 1 ? 'step-active' : ''}}">
+      <text class="step-num">1</text>
+      <text class="step-label">上传</text>
+    </view>
+    <view class="step-line {{step >= 2 ? 'step-line-active' : ''}}" />
+    <view class="step {{step >= 2 ? 'step-active' : ''}}">
+      <text class="step-num">2</text>
+      <text class="step-label">选择</text>
+    </view>
+    <view class="step-line {{step >= 3 ? 'step-line-active' : ''}}" />
+    <view class="step {{step >= 3 ? 'step-active' : ''}}">
+      <text class="step-num">3</text>
+      <text class="step-label">处理</text>
+    </view>
+    <view class="step-line {{step >= 4 ? 'step-line-active' : ''}}" />
+    <view class="step {{step >= 4 ? 'step-active' : ''}}">
+      <text class="step-num">4</text>
+      <text class="step-label">结果</text>
+    </view>
+  </view>
+
+  <scroll-view scroll-y class="content" enhanced show-scrollbar="{{false}}">
+    <view wx:if="{{step === 1}}" class="step-content">
+      <upload-area bind:choose="onImageChoose" />
+    </view>
+
+    <view wx:if="{{step === 2}}" class="step-content">
+      <view class="preview-image card">
+        <image src="{{imageUrl}}" mode="aspectFit" class="uploaded-img" />
+      </view>
+
+      <view class="options-section">
+        <text class="section-title">选择修复方式</text>
+        <t-radio-group value="{{selectedOption}}" bind:change="onOptionChange">
+          <view class="option-list">
+            <view wx:for="{{options}}" wx:key="id" class="option-item card">
+              <view class="option-info">
+                <t-radio value="{{item.id}}" label="{{item.name}}" />
+                <text class="option-desc">{{item.desc}}</text>
+              </view>
+              <text class="option-price">{{item.price}}{{item.priceUnit}}</text>
+            </view>
+          </view>
+        </t-radio-group>
+      </view>
+
+      <view class="submit-area">
+        <t-button
+          theme="primary"
+          size="large"
+          block
+          bindtap="onSubmit"
+          t-class="submit-btn"
+        >
+          开始处理（{{options[0].price}}点）
+        </t-button>
+      </view>
+    </view>
+
+    <view wx:if="{{step === 3}}" class="step-content flex-center">
+      <view class="processing-area">
+        <view class="processing-spinner" />
+        <text class="processing-text">AI正在处理中...</text>
+        <text class="processing-sub">预计需要30秒</text>
+      </view>
+    </view>
+
+    <view wx:if="{{step === 4}}" class="step-content">
+      <result-preview
+        originalUrl="{{imageUrl}}"
+        resultUrl="{{resultUrl}}"
+        bind:retry="onRetry"
+        bind:save="onSave"
+      />
+    </view>
+  </scroll-view>
+</view>

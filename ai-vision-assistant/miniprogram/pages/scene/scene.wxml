@@ -1,0 +1,40 @@
+<view class="page-scene">
+  <view class="header">
+    <text class="page-title">场景</text>
+    <text class="page-subtitle">选择你需要的AI场景</text>
+  </view>
+
+  <t-tabs
+    value="{{activeTab}}"
+    tabs="{{tabs}}"
+    bind:change="onTabChange"
+    t-class="scene-tabs"
+  />
+
+  <scroll-view scroll-y class="content" enhanced show-scrollbar="{{false}}">
+    <view class="scene-grid">
+      <view
+        wx:for="{{filteredScenes}}"
+        wx:key="id"
+        class="scene-item card"
+        data-id="{{item.id}}"
+        bindtap="onSceneTap"
+      >
+        <view class="scene-header">
+          <view class="scene-icon" style="background: {{item.bgColor}}">
+            <t-icon name="{{item.icon}}" size="40rpx" color="#171717" />
+          </view>
+          <view class="scene-count">
+            <text class="count-text">{{item.count}}个功能</text>
+          </view>
+        </view>
+        <text class="scene-title">{{item.title}}</text>
+        <text class="scene-desc">{{item.desc}}</text>
+        <view class="scene-tags">
+          <text wx:for="{{item.tags}}" wx:key="*this" wx:for-item="tag" class="tag tag-accent">{{tag}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="safe-bottom" />
+  </scroll-view>
+</view>

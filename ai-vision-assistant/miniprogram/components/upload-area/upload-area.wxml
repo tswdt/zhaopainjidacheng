@@ -1,0 +1,19 @@
+<view class="upload-area">
+  <view class="upload-box" bindtap="onChooseImage">
+    <view class="upload-icon">
+      <t-icon name="add" size="64rpx" color="#999" />
+    </view>
+    <text class="upload-text">点击上传图片</text>
+    <text class="upload-hint">支持 JPG、PNG 格式，最大 10MB</text>
+  </view>
+  <view class="upload-actions">
+    <view class="action-btn" bindtap="onTakePhoto">
+      <t-icon name="camera" size="36rpx" color="#171717" />
+      <text class="action-text">拍照上传</text>
+    </view>
+    <view class="action-btn" bindtap="onChooseImage">
+      <t-icon name="folder" size="36rpx" color="#171717" />
+      <text class="action-text">从相册选择</text>
+    </view>
+  </view>
+</view>

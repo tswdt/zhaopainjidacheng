@@ -1,0 +1,51 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/scan/index",
+    "pages/scene-select/index",
+    "pages/upload/index",
+    "pages/processing/index",
+    "pages/reports/index",
+    "pages/report-detail/index",
+    "pages/profile/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "AI视觉平台",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F6F8FB"
+  },
+  "tabBar": {
+    "color": "#8A94A6",
+    "selectedColor": "#B87300",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页",
+        "iconPath": "assets/tab-home.png",
+        "selectedIconPath": "assets/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/scan/index",
+        "text": "扫描",
+        "iconPath": "assets/tab-scan.png",
+        "selectedIconPath": "assets/tab-scan-active.png"
+      },
+      {
+        "pagePath": "pages/reports/index",
+        "text": "报告",
+        "iconPath": "assets/tab-report.png",
+        "selectedIconPath": "assets/tab-report-active.png"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的",
+        "iconPath": "assets/tab-profile.png",
+        "selectedIconPath": "assets/tab-profile-active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

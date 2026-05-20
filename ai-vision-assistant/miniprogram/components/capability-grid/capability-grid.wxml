@@ -1,0 +1,14 @@
+<view class="capability-grid">
+  <view
+    wx:for="{{capabilities}}"
+    wx:key="id"
+    class="capability-item"
+    data-id="{{item.id}}"
+    bindtap="onItemTap"
+  >
+    <view class="capability-icon" style="background: {{item.bgColor}}">
+      <t-icon name="{{item.icon}}" size="48rpx" color="#171717" />
+    </view>
+    <text class="capability-label">{{item.label}}</text>
+  </view>
+</view>

@@ -1,0 +1,50 @@
+<view class="page-task">
+  <view class="header">
+    <text class="page-title">任务</text>
+    <text class="page-subtitle">查看你的AI处理记录</text>
+  </view>
+
+  <t-tabs
+    value="{{activeTab}}"
+    tabs="{{tabs}}"
+    bind:change="onTabChange"
+    t-class="task-tabs"
+  />
+
+  <scroll-view scroll-y class="content" enhanced show-scrollbar="{{false}}">
+    <view wx:if="{{filteredTasks.length === 0}}" class="empty-wrap">
+      <t-empty icon="task" description="暂无任务记录" />
+    </view>
+
+    <view wx:else class="task-list">
+      <view
+        wx:for="{{filteredTasks}}"
+        wx:key="_id"
+        class="task-item card"
+        data-id="{{item._id}}"
+        bindtap="onTaskTap"
+      >
+        <view class="task-top">
+          <view class="task-type">
+            <view class="task-type-icon">
+              <t-icon name="image" size="32rpx" color="#171717" />
+            </view>
+            <text class="task-type-label">{{item.type === 'photo-restore' ? '照片修复' : item.type === 'decoration' ? '装修效果图' : item.type === 'health-check' ? '健康观察' : item.type}}</text>
+          </view>
+          <t-tag
+            theme="{{item.status === 'completed' ? 'success' : item.status === 'processing' ? 'warning' : 'default'}}"
+            size="small"
+            variant="light"
+          >
+            {{item.status === 'completed' ? '已完成' : item.status === 'processing' ? '处理中' : item.status === 'pending' ? '排队中' : '失败'}}
+          </t-tag>
+        </view>
+        <view class="task-bottom">
+          <text class="task-cost">消耗 {{item.creditsCost}} 点</text>
+          <text class="task-time">{{item.status === 'processing' ? '处理中...' : ''}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="safe-bottom" />
+  </scroll-view>
+</view>

@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "场景",
+  "usingComponents": {
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-tabs": "tdesign-miniprogram/tabs/tabs",
+    "scene-card": "../../components/scene-card/scene-card"
+  }
+}

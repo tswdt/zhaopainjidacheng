@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "老照片修复",
+  "usingComponents": {
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-radio": "tdesign-miniprogram/radio/radio",
+    "t-radio-group": "tdesign-miniprogram/radio-group/radio-group",
+    "upload-area": "../../components/upload-area/upload-area",
+    "result-preview": "../../components/result-preview/result-preview"
+  }
+}

@@ -1,0 +1,58 @@
+<view class="page-profile">
+  <view class="profile-header">
+    <view wx:if="{{!isLogin}}" class="login-area" bindtap="onLoginTap">
+      <view class="avatar-placeholder">
+        <t-icon name="user" size="56rpx" color="#999" />
+      </view>
+      <view class="login-info">
+        <text class="login-text">点击登录</text>
+        <text class="login-sub">登录后享受更多服务</text>
+      </view>
+      <t-icon name="chevron-right" size="32rpx" color="#999" />
+    </view>
+
+    <view wx:else class="user-area">
+      <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill" />
+      <view class="user-info">
+        <text class="user-name">{{userInfo.nickName}}</text>
+        <view class="user-badges">
+          <text wx:if="{{isVip}}" class="badge-vip">VIP会员</text>
+          <text class="badge-credits">{{credits}} 点</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="stats-bar card">
+    <view class="stat-item">
+      <text class="stat-value">{{credits}}</text>
+      <text class="stat-label">剩余点数</text>
+    </view>
+    <view class="stat-divider" />
+    <view class="stat-item">
+      <text class="stat-value">0</text>
+      <text class="stat-label">已完成</text>
+    </view>
+    <view class="stat-divider" />
+    <view class="stat-item">
+      <text class="stat-value">{{isVip ? 'VIP' : '普通'}}</text>
+      <text class="stat-label">会员等级</text>
+    </view>
+  </view>
+
+  <view class="menu-section">
+    <view
+      wx:for="{{menuList}}"
+      wx:key="id"
+      class="menu-item card"
+      data-id="{{item.id}}"
+      bindtap="onMenuTap"
+    >
+      <view class="menu-left">
+        <t-icon name="{{item.icon}}" size="40rpx" color="#171717" />
+        <text class="menu-label">{{item.label}}</text>
+      </view>
+      <t-icon name="chevron-right" size="28rpx" color="#ccc" />
+    </view>
+  </view>
+</view>

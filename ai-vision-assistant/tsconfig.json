@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "./miniprogram",
+    "typeRoots": [
+      "./typings",
+      "./node_modules/@types"
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "lib": ["ES6"]
+  },
+  "include": [
+    "miniprogram/**/*.ts",
+    "typings/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "cloudfunctions"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "ai-vision-assistant",
+  "version": "1.0.0",
+  "description": "AI视觉生活助手小程序",
+  "main": "app.js",
+  "scripts": {},
+  "dependencies": {
+    "tdesign-miniprogram": "^1.9.8"
+  },
+  "devDependencies": {
+    "miniprogram-api-typings": "^3.12.3",
+    "typescript": "^5.6.0"
+  }
+}

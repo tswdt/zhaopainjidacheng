@@ -1,0 +1,14 @@
+.credits-badge {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  background: var(--color-accent-light);
+  padding: 8rpx 20rpx;
+  border-radius: var(--radius-full);
+}
+
+.credits-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-accent);
+  font-weight: var(--font-weight-semibold);
+}

@@ -1,0 +1,94 @@
+<view class="page-home">
+  <view class="header">
+    <view class="header-top">
+      <view class="greeting">
+        <text class="greeting-text">你好 👋</text>
+        <text class="greeting-sub">今天想用AI做什么？</text>
+      </view>
+      <credits-badge />
+    </view>
+    <t-search
+      value="{{searchValue}}"
+      placeholder="搜索功能或场景"
+      bind:change="onSearch"
+      t-class="search-bar"
+    />
+  </view>
+
+  <scroll-view scroll-y class="content" enhanced show-scrollbar="{{false}}">
+    <view class="banner-section">
+      <t-swiper
+        list="{{bannerList}}"
+        autoplay
+        interval="{{4000}}"
+        duration="{{500}}"
+        navigation="{{ { type: 'dots' } }}"
+        t-class="banner-swiper"
+        bind:click="onBannerTap"
+      />
+    </view>
+
+    <view class="capability-section">
+      <view class="section-title">AI能力</view>
+      <view class="capability-grid">
+        <view
+          wx:for="{{capabilities}}"
+          wx:key="id"
+          class="capability-item"
+          data-id="{{item.id}}"
+          bindtap="onCapabilityTap"
+        >
+          <view class="capability-icon" style="background: {{item.bgColor}}">
+            <t-icon name="{{item.icon}}" size="48rpx" color="#171717" />
+          </view>
+          <text class="capability-label">{{item.label}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="hot-section">
+      <view class="section-title">热门推荐</view>
+      <view class="hot-list">
+        <view
+          wx:for="{{hotList}}"
+          wx:key="id"
+          class="hot-item card"
+          data-id="{{item.id}}"
+          bindtap="onHotItemTap"
+        >
+          <view class="hot-icon" style="background: {{item.bgColor}}">
+            <t-icon name="{{item.icon}}" size="40rpx" color="#171717" />
+          </view>
+          <view class="hot-info">
+            <text class="hot-title">{{item.title}}</text>
+            <text class="hot-price">{{item.price}}</text>
+          </view>
+          <t-icon name="chevron-right" size="32rpx" color="#999" />
+        </view>
+      </view>
+    </view>
+
+    <view class="recent-section" wx:if="{{recentList.length}}">
+      <view class="section-title">最近使用</view>
+      <view class="recent-list">
+        <view
+          wx:for="{{recentList}}"
+          wx:key="id"
+          class="recent-item"
+          data-id="{{item.id}}"
+          bindtap="onRecentItemTap"
+        >
+          <view class="recent-icon">
+            <t-icon name="{{item.icon}}" size="36rpx" color="#666" />
+          </view>
+          <view class="recent-info">
+            <text class="recent-title">{{item.title}}</text>
+            <text class="recent-time">{{item.time}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="safe-bottom" />
+  </scroll-view>
+</view>

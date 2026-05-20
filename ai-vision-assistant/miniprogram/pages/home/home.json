@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "AI视觉助手",
+  "usingComponents": {
+    "t-search": "tdesign-miniprogram/search/search",
+    "t-swiper": "tdesign-miniprogram/swiper/swiper",
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "capability-grid": "../../components/capability-grid/capability-grid",
+    "scene-card": "../../components/scene-card/scene-card",
+    "credits-badge": "../../components/credits-badge/credits-badge"
+  }
+}

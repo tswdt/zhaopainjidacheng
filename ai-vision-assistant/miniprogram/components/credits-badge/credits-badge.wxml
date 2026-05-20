@@ -1,0 +1,4 @@
+<view class="credits-badge">
+  <t-icon name="coins" size="28rpx" color="#A16207" />
+  <text class="credits-text">{{credits}} 点</text>
+</view>

@@ -1,0 +1,46 @@
+<view class="result-preview">
+  <view class="result-header">
+    <text class="result-title">处理完成</text>
+    <view class="result-badge">
+      <t-icon name="check-circle" size="28rpx" color="#52c41a" />
+      <text class="result-badge-text">成功</text>
+    </view>
+  </view>
+
+  <view class="compare-area">
+    <view class="compare-item" bindtap="onPreviewOriginal">
+      <text class="compare-label">原图</text>
+      <image src="{{originalUrl}}" mode="aspectFit" class="compare-img" />
+    </view>
+    <view class="compare-arrow">
+      <t-icon name="arrow-right" size="40rpx" color="#999" />
+    </view>
+    <view class="compare-item" bindtap="onPreviewResult">
+      <text class="compare-label">结果</text>
+      <view wx:if="{{!resultUrl}}" class="compare-placeholder">
+        <t-icon name="image" size="48rpx" color="#ccc" />
+        <text class="placeholder-text">模拟结果</text>
+      </view>
+      <image wx:else src="{{resultUrl}}" mode="aspectFit" class="compare-img" />
+    </view>
+  </view>
+
+  <view class="result-actions">
+    <t-button
+      theme="light"
+      size="large"
+      bindtap="onRetry"
+      t-class="action-retry"
+    >
+      重新处理
+    </t-button>
+    <t-button
+      theme="primary"
+      size="large"
+      bindtap="onSave"
+      t-class="action-save"
+    >
+      保存结果
+    </t-button>
+  </view>
+</view>

@@ -1,0 +1,35 @@
+<view class="page">
+  <view class="reports-header">
+    <view class="reports-title">我的报告</view>
+    <view class="reports-count">共 {{reports.length}} 份</view>
+  </view>
+
+  <view class="filter-tabs">
+    <view class="filter-tab {{currentFilter === 'all' ? 'active' : ''}}" bindtap="filterReports" data-filter="all">全部</view>
+    <view class="filter-tab {{currentFilter === 'done' ? 'active' : ''}}" bindtap="filterReports" data-filter="done">已完成</view>
+    <view class="filter-tab {{currentFilter === 'processing' ? 'active' : ''}}" bindtap="filterReports" data-filter="processing">处理中</view>
+    <view class="filter-tab {{currentFilter === 'failed' ? 'active' : ''}}" bindtap="filterReports" data-filter="failed">失败</view>
+  </view>
+
+  <view class="report-list" wx:if="{{reports.length}}">
+    <view class="report-card" wx:for="{{reports}}" wx:key="reportId" bindtap="openReportDetail" data-report-id="{{item.reportId}}">
+      <view class="report-card-top">
+        <view class="report-card-icon" style="background:{{item.iconBg}}">{{item.icon}}</view>
+        <view class="report-card-info">
+          <view class="report-card-title">{{item.title}}</view>
+          <view class="report-card-scene">{{item.summary}}</view>
+        </view>
+        <view class="report-card-status {{item.status}}">{{item.status === 'done' ? '已完成' : item.status === 'processing' ? '处理中' : '失败'}}</view>
+      </view>
+      <view class="report-card-bottom">
+        <view class="report-card-time">{{item.createdAt}}</view>
+        <view class="report-card-cost">{{item.costCredits === 0 ? '免费' : item.costCredits + '积分'}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:else>
+    <view class="empty-icon">📋</view>
+    <view class="empty-text">暂无报告，上传图片开始AI分析</view>
+  </view>
+</view>

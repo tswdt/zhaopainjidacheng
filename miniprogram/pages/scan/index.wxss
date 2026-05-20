@@ -1,0 +1,94 @@
+.scan-header {
+  padding: 48rpx var(--spacing-page) 24rpx;
+  background: var(--bg-card);
+}
+
+.scan-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.scan-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-top: 8rpx;
+}
+
+.scan-grid {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 24rpx var(--spacing-page) 0;
+  gap: var(--spacing-card-gap);
+}
+
+.scan-card {
+  width: calc(50% - 10rpx);
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  padding: 32rpx 24rpx;
+  box-shadow: var(--shadow-card);
+  transition: opacity 0.15s;
+}
+
+.scan-card:active {
+  opacity: 0.85;
+}
+
+.scan-card-icon {
+  font-size: 32px;
+  margin-bottom: 14rpx;
+}
+
+.scan-card-name {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4rpx;
+}
+
+.scan-card-desc {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.quick-grid {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 var(--spacing-page);
+  gap: var(--spacing-card-gap);
+}
+
+.quick-card {
+  width: calc(33.33% - 14rpx);
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  padding: 24rpx 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: var(--shadow-card);
+  transition: opacity 0.15s;
+}
+
+.quick-card:active {
+  opacity: 0.85;
+}
+
+.quick-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 12rpx;
+}
+
+.quick-name {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+}

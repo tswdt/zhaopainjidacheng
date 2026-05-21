@@ -1,5 +1,4 @@
 const { sceneRegistry } = require('../../services/sceneRegistry');
-const { mockTypeOptions } = require('../../services/mockTypes');
 const { UniversalVisualRouter } = require('../../services/routerService');
 const { taskManager, reportManager } = require('../../services/managers');
 const app = getApp();
@@ -10,9 +9,9 @@ Page({
     scene: null,
     isDirectUpload: false,
     directType: 'image',
-    mockTypeOptions: mockTypeOptions,
     currentMockUploadType: '',
     hasFile: false,
+    uploading: false,
     routing: false,
     costText: '',
     showConfirm: false,
@@ -58,37 +57,73 @@ Page({
     }
   },
 
-  setMockUploadType(e) {
-    const type = e.currentTarget.dataset.type;
+  handleUploadAreaTap() {
+    if (this.data.uploading || this.data.routing) return;
+    if (this.data.hasFile) {
+      return;
+    }
+    this._doUpload('image');
+  },
+
+  takePhoto() {
+    this._doUpload('camera');
+  },
+
+  chooseImage() {
+    this._doUpload('image');
+  },
+
+  chooseDocument() {
+    this._doUpload('document');
+  },
+
+  resetUpload() {
     this.setData({
-      currentMockUploadType: type,
-      hasFile: false
+      hasFile: false,
+      uploading: false,
+      routing: false,
+      currentMockUploadType: ''
     });
   },
 
-  simulateUpload() {
-    if (!this.data.currentMockUploadType) {
-      wx.showToast({ title: '请先选择模拟上传内容类型', icon: 'none' });
-      return;
-    }
-    this.setData({ hasFile: true, routing: true });
-    const uploadedFile = { name: 'image_20250519.jpg', size: '1.2MB', type: 'image/jpeg' };
-    setTimeout(() => {
-      this.setData({ routing: false });
-      let selectedSceneId = this.data.sceneId || null;
-      const routeResult = UniversalVisualRouter.route({
-        selectedSceneId,
+  handleSubmit() {
+    if (!this.data.hasFile || this.data.uploading || this.data.routing) return;
+    this._processUploadedFile();
+  },
+
+  _doUpload(type) {
+    var self = this;
+    self.setData({ uploading: true });
+    var mockType = type === 'camera' ? 'invoice' : type === 'document' ? 'contract' : 'invoice';
+    setTimeout(function() {
+      self.setData({
+        uploading: false,
+        hasFile: true,
+        currentMockUploadType: mockType
+      });
+    }, 600);
+  },
+
+  _processUploadedFile() {
+    var self = this;
+    self.setData({ routing: true });
+    var uploadedFile = { name: 'image_20250519.jpg', size: '1.2MB', type: 'image/jpeg' };
+    setTimeout(function() {
+      self.setData({ routing: false });
+      var selectedSceneId = self.data.sceneId || null;
+      var routeResult = UniversalVisualRouter.route({
+        selectedSceneId: selectedSceneId,
         file: uploadedFile,
-        mockUploadType: this.data.currentMockUploadType
+        mockUploadType: self.data.currentMockUploadType
       });
       if (routeResult._impliedSelectedSceneId) {
         selectedSceneId = routeResult._impliedSelectedSceneId;
         delete routeResult._impliedSelectedSceneId;
       }
       if (UniversalVisualRouter.shouldConfirm(routeResult, selectedSceneId)) {
-        this._showRouteConfirmDialog(routeResult, selectedSceneId, uploadedFile);
+        self._showRouteConfirmDialog(routeResult, selectedSceneId, uploadedFile);
       } else {
-        this._proceedWithRoute(routeResult, selectedSceneId, uploadedFile);
+        self._proceedWithRoute(routeResult, selectedSceneId, uploadedFile);
       }
     }, 500);
   },
@@ -120,7 +155,6 @@ Page({
       return {
         sceneId: cs.sceneId,
         name: cs.name,
-        icon: csScene.icon || '📄',
         iconBg: csScene.iconBg || '#F1F3F5',
         confidenceText: Math.round(cs.confidence * 100) + '%'
       };
@@ -139,7 +173,6 @@ Page({
         mismatchText,
         candidateScenes,
         suggestedSceneName: suggestedScene ? suggestedScene.name : '',
-        suggestedSceneIcon: suggestedScene ? suggestedScene.icon : '',
         selectedSceneName: selectedScene ? selectedScene.name : ''
       },
       _pendingRouteResult: routeResult,

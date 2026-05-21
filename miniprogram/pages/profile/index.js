@@ -23,7 +23,7 @@ Page({
   rechargeCredits() {
     wx.showModal({
       title: '充值积分',
-      content: '充值功能开发中，敬请期待',
+      content: '该功能即将上线，敬请期待',
       showCancel: false
     });
   },
@@ -31,7 +31,7 @@ Page({
   goCreditsDetail() {
     wx.showModal({
       title: '积分明细',
-      content: '积分明细功能开发中，敬请期待',
+      content: '该功能即将上线，敬请期待',
       showCancel: false
     });
   },
@@ -39,7 +39,7 @@ Page({
   subscribeMember() {
     wx.showModal({
       title: '会员订阅',
-      content: '会员订阅功能开发中，敬请期待',
+      content: '该功能即将上线，敬请期待',
       showCancel: false
     });
   },
@@ -47,7 +47,7 @@ Page({
   goOrders() {
     wx.showModal({
       title: '订单记录',
-      content: '订单记录功能开发中，敬请期待',
+      content: '该功能即将上线，敬请期待',
       showCancel: false
     });
   },
@@ -55,15 +55,15 @@ Page({
   goSettings() {
     wx.showModal({
       title: '设置',
-      content: '设置功能开发中，敬请期待',
+      content: '该功能即将上线，敬请期待',
       showCancel: false
     });
   },
 
   goAbout() {
     wx.showModal({
-      title: '关于平台',
-      content: 'AI视觉平台 v1.0\n拍照即识别，智能分析一切',
+      title: '关于我们',
+      content: 'AI视觉分析平台 v1.0\n拍照即识别，智能分析一切',
       showCancel: false
     });
   }

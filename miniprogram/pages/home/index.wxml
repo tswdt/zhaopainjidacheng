@@ -1,48 +1,65 @@
-<view class="page">
+<view class="page home-page">
+  <!-- Hero区域 -->
   <view class="hero">
-    <view class="hero-title">上传一张图，得到一个结果</view>
+    <view class="hero-title">
+      <text class="hero-title-dark">上传一张图，</text>
+      <text class="hero-title-gold">得到一个结果</text>
+    </view>
     <view class="hero-subtitle">AI帮你识别、分析、修复和生成</view>
   </view>
 
+  <!-- Action按钮 -->
   <view class="action-row">
     <view class="action-btn primary" bindtap="goScan">
       <view class="action-icon-wrap primary-icon">
-        <view class="action-icon-text">📸</view>
+        <icon name="camera" size="24" color="#FFFFFF"/>
       </view>
       <view class="action-label">拍照识别</view>
     </view>
     <view class="action-btn secondary" bindtap="goSceneSelect">
-      <view class="action-icon-wrap">
-        <view class="action-icon-text">🔍</view>
+      <view class="action-icon-wrap secondary-icon">
+        <icon name="image" size="24" color="#5A6478"/>
       </view>
-      <view class="action-label">选场景</view>
+      <view class="action-label">上传图片</view>
     </view>
     <view class="action-btn secondary" bindtap="goItemManage">
-      <view class="action-icon-wrap">
-        <view class="action-icon-text">📦</view>
+      <view class="action-icon-wrap secondary-icon">
+        <icon name="document" size="24" color="#5A6478"/>
       </view>
-      <view class="action-label">管理物品</view>
+      <view class="action-label">上传文档</view>
     </view>
   </view>
 
-  <view class="section-title">AI能力</view>
+  <!-- AI能力 -->
+  <view class="section-header">
+    <view class="section-title-text">你要得到什么结果？</view>
+  </view>
   <view class="capability-grid">
     <view class="capability-card" wx:for="{{capabilities}}" wx:key="name" bindtap="goSceneSelect">
-      <view class="capability-icon" style="background:{{item.bg}}">{{item.icon}}</view>
+      <view class="capability-icon" style="background:{{item.bg}}">
+        <icon name="{{item.iconName}}" size="24" color="{{item.iconColor}}"/>
+      </view>
       <view class="capability-name">{{item.name}}</view>
       <view class="capability-desc">{{item.desc}}</view>
     </view>
   </view>
 
-  <view class="section-title">热门场景</view>
-  <view class="hot-list">
-    <view class="hot-card" wx:for="{{hotScenes}}" wx:key="sceneId" bindtap="selectScene" data-scene-id="{{item.sceneId}}">
-      <view class="hot-icon" style="background:{{item.iconBg}}">{{item.icon}}</view>
-      <view class="hot-info">
-        <view class="hot-name">{{item.name}}</view>
-        <view class="hot-cost">{{item.costCredits === 0 ? '免费' : item.costCredits + '积分'}}</view>
-      </view>
-      <view class="hot-arrow">›</view>
+  <!-- 热门场景 -->
+  <view class="section-header hot-section-header">
+    <view class="section-title-text">热门场景</view>
+    <view class="section-more" bindtap="goSceneSelect">
+      <text>更多</text>
+      <icon name="chevronRight" size="12" color="#8A94A6"/>
     </view>
   </view>
+  <scroll-view class="hot-scroll" scroll-x="true" show-scrollbar="false">
+    <view class="hot-list">
+      <view class="hot-card" wx:for="{{hotScenes}}" wx:key="sceneId" bindtap="selectScene" data-scene-id="{{item.sceneId}}">
+        <view class="hot-icon" style="background:{{item.iconBg}}">
+          <icon name="{{item.iconName}}" size="28" color="{{item.iconColor}}"/>
+        </view>
+        <view class="hot-name">{{item.name}}</view>
+      </view>
+    </view>
+  </scroll-view>
 </view>

@@ -1,7 +1,7 @@
 <view class="page">
   <view class="profile-header">
     <view class="avatar-wrap">
-      <view class="avatar">👤</view>
+      <icon name="user" size="28" color="#B87300"/>
     </view>
     <view class="user-name">用户</view>
   </view>
@@ -29,37 +29,40 @@
 
   <view class="upgrade-card">
     <view class="upgrade-top">
-      <view class="upgrade-title">⭐ 升级会员</view>
-      <view class="upgrade-desc">解锁更多场景和优惠积分</view>
+      <view class="upgrade-title">
+        <icon name="star" size="16" color="#F59E0B"/>
+        <text>升级会员</text>
+      </view>
+      <view class="upgrade-desc">解锁全部场景，享受专属优惠</view>
     </view>
     <view class="upgrade-btn" bindtap="subscribeMember">立即开通</view>
   </view>
 
   <view class="menu-list">
     <view class="menu-item" bindtap="goCreditsDetail">
-      <view class="menu-icon-wrap"><view class="menu-icon-text">💰</view></view>
+      <view class="menu-icon-wrap"><icon name="coins" size="20" color="#B87300"/></view>
       <view class="menu-text">积分明细</view>
-      <view class="menu-arrow">›</view>
+      <icon name="chevronRight" size="16" color="#B0B8C8"/>
     </view>
     <view class="menu-item" bindtap="subscribeMember">
-      <view class="menu-icon-wrap"><view class="menu-icon-text">⭐</view></view>
+      <view class="menu-icon-wrap"><icon name="star" size="20" color="#F59E0B"/></view>
       <view class="menu-text">会员订阅</view>
-      <view class="menu-arrow">›</view>
+      <icon name="chevronRight" size="16" color="#B0B8C8"/>
     </view>
     <view class="menu-item" bindtap="goOrders">
-      <view class="menu-icon-wrap"><view class="menu-icon-text">📋</view></view>
+      <view class="menu-icon-wrap"><icon name="clipboard" size="20" color="#2563EB"/></view>
       <view class="menu-text">订单记录</view>
-      <view class="menu-arrow">›</view>
+      <icon name="chevronRight" size="16" color="#B0B8C8"/>
     </view>
     <view class="menu-item" bindtap="goSettings">
-      <view class="menu-icon-wrap"><view class="menu-icon-text">⚙️</view></view>
+      <view class="menu-icon-wrap"><icon name="settings" size="20" color="#475569"/></view>
       <view class="menu-text">设置</view>
-      <view class="menu-arrow">›</view>
+      <icon name="chevronRight" size="16" color="#B0B8C8"/>
     </view>
     <view class="menu-item" bindtap="goAbout">
-      <view class="menu-icon-wrap"><view class="menu-icon-text">ℹ️</view></view>
+      <view class="menu-icon-wrap"><icon name="info" size="20" color="#475569"/></view>
       <view class="menu-text">关于平台</view>
-      <view class="menu-arrow">›</view>
+      <icon name="chevronRight" size="16" color="#B0B8C8"/>
     </view>
   </view>
 </view>

@@ -29,6 +29,32 @@ Page({
     }
   },
 
+  cancelProcessing() {
+    var self = this;
+    wx.showModal({
+      title: '确认取消',
+      content: '取消后当前处理进度将丢失，确定要取消吗？',
+      confirmText: '取消处理',
+      cancelText: '继续等待',
+      confirmColor: '#DC2626',
+      success: function(res) {
+        if (res.confirm) {
+          if (self._pollTimer) {
+            clearInterval(self._pollTimer);
+            self._pollTimer = null;
+          }
+          if (self.data.taskId) {
+            var task = taskManager.getTask(self.data.taskId);
+            if (task) {
+              taskManager.updateTask(self.data.taskId, { status: 'cancelled' });
+            }
+          }
+          wx.navigateBack();
+        }
+      }
+    });
+  },
+
   _startProcessing(taskId) {
     mockAIService.processTask(taskId).then(result => {
       if (result && result.report) {

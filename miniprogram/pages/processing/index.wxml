@@ -1,12 +1,33 @@
 <view class="page">
   <view class="processing-container">
     <view class="processing-spinner" wx:if="{{!done}}"></view>
-    <view class="processing-icon" wx:if="{{done}}">✅</view>
+    <view class="processing-done-icon" wx:if="{{done}}">
+      <icon name="check" size="40" color="#059669"/>
+    </view>
     <view class="processing-title">{{progressText}}</view>
     <view class="processing-desc">{{stepText}}</view>
     <view class="progress-bar-wrap">
       <view class="progress-bar-fill" style="width:{{progress}}%"></view>
     </view>
+    <view class="progress-steps" wx:if="{{!done}}">
+      <view class="progress-step {{progress >= 10 ? 'done' : ''}} {{progress >= 10 && progress < 30 ? 'active' : ''}}">
+        <view class="step-dot"></view>
+        <text class="step-label">上传</text>
+      </view>
+      <view class="progress-step {{progress >= 30 ? 'done' : ''}} {{progress >= 30 && progress < 60 ? 'active' : ''}}">
+        <view class="step-dot"></view>
+        <text class="step-label">分析</text>
+      </view>
+      <view class="progress-step {{progress >= 60 ? 'done' : ''}} {{progress >= 60 && progress < 90 ? 'active' : ''}}">
+        <view class="step-dot"></view>
+        <text class="step-label">生成</text>
+      </view>
+      <view class="progress-step {{progress >= 90 ? 'done' : ''}} {{progress >= 90 && progress < 100 ? 'active' : ''}}">
+        <view class="step-dot"></view>
+        <text class="step-label">校验</text>
+      </view>
+    </view>
     <view class="processing-tip" wx:if="{{!done}}">处理过程中请勿关闭页面</view>
+    <view class="processing-cancel" wx:if="{{!done}}" bindtap="cancelProcessing">取消处理</view>
   </view>
 </view>

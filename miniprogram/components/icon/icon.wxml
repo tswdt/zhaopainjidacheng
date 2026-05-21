@@ -1,0 +1,6 @@
+<image
+  class="icon {{'icon-' + name}}"
+  src="{{iconSrc}}"
+  mode="aspectFit"
+  style="width:{{iconSize}}rpx;height:{{iconSize}}rpx;"
+/>

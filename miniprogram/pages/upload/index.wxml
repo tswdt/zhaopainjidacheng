@@ -1,68 +1,85 @@
 <view class="page">
   <view class="scene-hero" wx:if="{{scene}}">
-    <view class="scene-hero-icon" style="background:{{scene.iconBg}}">{{scene.icon}}</view>
+    <view class="scene-hero-icon" style="background:{{scene.iconBg}}">
+      <icon name="{{scene.iconName || 'document'}}" size="28" color="{{scene.iconColor || '#475569'}}"/>
+    </view>
     <view class="scene-hero-title">{{scene.name}}</view>
     <view class="scene-hero-desc">{{scene.description}}</view>
   </view>
 
   <view class="scene-hero" wx:elif="{{isDirectUpload}}">
-    <view class="scene-hero-icon" style="background:#FEF3C7">🔍</view>
+    <view class="scene-hero-icon" style="background:#FEF3C7">
+      <icon name="search" size="28" color="#D97706"/>
+    </view>
     <view class="scene-hero-title">AI智能识别</view>
     <view class="scene-hero-desc">上传文件，AI自动判断内容类型并匹配最佳场景</view>
   </view>
 
-  <view class="mock-selector">
-    <view class="mock-selector-title">🧪 模拟上传内容（测试用）</view>
-    <view class="mock-selector-grid">
-      <view class="mock-type-chip {{currentMockUploadType === item.key ? 'active' : ''}}" wx:for="{{mockTypeOptions}}" wx:key="key" bindtap="setMockUploadType" data-type="{{item.key}}">
-        {{item.icon}} {{item.label}}
-      </view>
-    </view>
-  </view>
-
-  <view class="upload-area {{hasFile ? 'has-file' : ''}}" bindtap="simulateUpload">
-    <block wx:if="{{routing}}">
+  <view class="upload-area {{hasFile ? 'has-file' : ''}} {{uploading ? 'uploading' : ''}}" bindtap="handleUploadAreaTap">
+    <block wx:if="{{uploading}}">
+      <view class="upload-spinner"></view>
+      <view class="upload-area-text processing">正在上传...</view>
+      <view class="upload-area-hint">请稍候</view>
+    </block>
+    <block wx:elif="{{routing}}">
       <view class="routing-indicator">
         <view class="mini-spinner"></view>
         <text class="routing-text">AI正在识别内容...</text>
       </view>
     </block>
     <block wx:elif="{{hasFile}}">
-      <view class="upload-done-icon">✅</view>
+      <icon name="check" size="32" color="#059669"/>
       <view class="upload-area-text done">文件已选择</view>
-      <view class="upload-area-hint">模拟上传: {{currentMockUploadType}}</view>
+      <view class="upload-area-hint">点击可重新选择</view>
     </block>
     <block wx:else>
-      <view class="upload-area-icon">☁️</view>
+      <icon name="upload" size="32" color="#B87300"/>
       <view class="upload-area-text">点击上传文件</view>
       <view class="upload-area-hint">支持拍照、相册选择、文档上传</view>
     </block>
   </view>
 
-  <view class="upload-btns" wx:if="{{!hasFile}}">
-    <view class="upload-btn primary" bindtap="simulateUpload">📸 拍照</view>
-    <view class="upload-btn secondary" bindtap="simulateUpload">🖼️ 相册</view>
+  <view class="upload-btns" wx:if="{{!hasFile && !uploading}}">
+    <view class="upload-btn primary" bindtap="takePhoto">
+      <icon name="camera" size="18" color="#FFFFFF"/>
+      <text>拍照</text>
+    </view>
+    <view class="upload-btn secondary" bindtap="chooseImage">
+      <icon name="image" size="18" color="#5A6478"/>
+      <text>相册</text>
+    </view>
+    <view class="upload-btn secondary" bindtap="chooseDocument">
+      <icon name="document" size="18" color="#5A6478"/>
+      <text>文档</text>
+    </view>
+  </view>
+
+  <view class="upload-btns" wx:if="{{hasFile && !uploading && !routing}}">
+    <view class="upload-btn outline" bindtap="resetUpload">
+      <icon name="close" size="16" color="#5A6478"/>
+      <text>重新选择</text>
+    </view>
   </view>
 
   <view class="features-list" wx:if="{{scene && scene.features.length}}">
     <view class="feature-item" wx:for="{{scene.features}}" wx:key="index">
-      <view class="feature-check">✓</view>
+      <icon name="check" size="14" color="#059669"/>
       <view class="feature-text">{{item}}</view>
     </view>
   </view>
 
   <view class="features-list" wx:elif="{{isDirectUpload}}">
     <view class="feature-item">
-      <view class="feature-check">✓</view>
+      <icon name="check" size="14" color="#059669"/>
       <view class="feature-text">AI自动识别内容类型</view>
     </view>
     <view class="feature-item">
-      <view class="feature-check">✓</view>
+      <icon name="check" size="14" color="#059669"/>
       <view class="feature-text">智能匹配最佳处理场景</view>
     </view>
     <view class="feature-item">
-      <view class="feature-check">✓</view>
-      <view class="feature-text">不确定时推荐通用分析</view>
+      <icon name="check" size="14" color="#059669"/>
+      <view class="feature-text">无法识别时推荐通用分析</view>
     </view>
   </view>
 
@@ -71,15 +88,26 @@
     <text class="cost-value">{{costText}}</text>
   </view>
 
-  <view class="submit-btn" bindtap="simulateUpload">
-    开始处理 <text class="submit-cost">{{costText}}</text>
+  <view class="submit-btn {{(!hasFile || uploading || routing) ? 'btn-disabled' : ''}}" bindtap="handleSubmit">
+    <block wx:if="{{uploading}}">
+      <view class="submit-spinner"></view>
+      <text>上传中...</text>
+    </block>
+    <block wx:elif="{{routing}}">
+      <text>AI识别中...</text>
+    </block>
+    <block wx:else>
+      开始处理 <text class="submit-cost">{{costText}}</text>
+    </block>
   </view>
 </view>
 
 <view class="confirm-overlay {{showConfirm ? 'show' : ''}}" bindtap="closeConfirm"></view>
 <view class="confirm-dialog {{showConfirm ? 'show' : ''}}">
   <view class="confirm-header">
-    <view class="confirm-icon {{confirmData.isMismatch ? 'warn' : ''}}">{{confirmData.isMismatch ? '⚠️' : '❓'}}</view>
+    <view class="confirm-icon-wrap {{confirmData.isMismatch ? 'warn' : ''}}">
+      <icon name="{{confirmData.isMismatch ? 'warning' : 'question'}}" size="24" color="{{confirmData.isMismatch ? '#DC2626' : '#D97706'}}"/>
+    </view>
     <view class="confirm-title">{{confirmData.title}}</view>
     <view class="confirm-desc">{{confirmData.desc}}</view>
   </view>
@@ -107,20 +135,22 @@
   <view class="confirm-candidates" wx:if="{{confirmData.candidateScenes.length}}">
     <view class="confirm-candidates-title">候选场景</view>
     <view class="confirm-candidate-item" wx:for="{{confirmData.candidateScenes}}" wx:key="sceneId" bindtap="selectCandidateScene" data-scene-id="{{item.sceneId}}">
-      <text class="candidate-icon" style="background:{{item.iconBg}}">{{item.icon}}</text>
+      <view class="candidate-icon" style="background:{{item.iconBg}}">
+        <icon name="{{item.iconName || 'document'}}" size="14" color="{{item.iconColor || '#475569'}}"/>
+      </view>
       <text class="candidate-name">{{item.name}}</text>
       <text class="candidate-conf">{{item.confidenceText}}</text>
     </view>
   </view>
   <view class="confirm-actions">
     <view class="confirm-btn primary" wx:if="{{confirmData.suggestedSceneName}}" bindtap="confirmRouteChoice" data-choice="suggested">
-      {{confirmData.suggestedSceneIcon}} 使用「{{confirmData.suggestedSceneName}}」
+      使用「{{confirmData.suggestedSceneName}}」
     </view>
     <view class="confirm-btn secondary" wx:if="{{confirmData.isMismatch}}" bindtap="confirmRouteChoice" data-choice="original">
       仍按「{{confirmData.selectedSceneName}}」处理
     </view>
     <view class="confirm-btn outline" bindtap="confirmRouteChoice" data-choice="general">
-      🔎 使用通用图片分析
+      使用通用图片分析
     </view>
   </view>
 </view>

@@ -1,6 +1,8 @@
 <view class="page">
   <view class="report-header">
-    <view class="report-header-icon" style="background:{{report.iconBg}}">{{report.icon}}</view>
+    <view class="report-header-icon" style="background:{{report.iconBg}}">
+      <icon name="{{report.iconName || 'document'}}" size="28" color="{{report.iconColor || '#475569'}}"/>
+    </view>
     <view class="report-header-title">{{report.title}}</view>
     <view class="report-header-summary">{{report.summary}}</view>
     <view class="report-meta">
@@ -11,13 +13,13 @@
   </view>
 
   <view class="ai-summary" wx:if="{{result.summary}}">
-    <view class="ai-summary-title">💡 AI摘要</view>
+    <view class="ai-summary-title"><icon name="sparkle" size="16" color="#D97706"/> AI摘要</view>
     <view class="ai-summary-text">{{result.summary}}</view>
   </view>
 
   <block wx:if="{{report.reportType === 'documentRead'}}">
     <view class="detail-section" wx:for="{{result.sections}}" wx:key="sectionId">
-      <view class="detail-section-title">📋 {{item.title}}</view>
+      <view class="detail-section-title"><icon name="document" size="16" color="#475569"/> {{item.title}}</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{item.data.fields}}" wx:for-item="field" wx:key="key">
           <text class="detail-key">{{field.key}}</text>
@@ -29,7 +31,7 @@
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.uncertainFields && result.uncertainFields.length}}">
-      <view class="detail-section-title">❓ 不确定字段</view>
+      <view class="detail-section-title"><icon name="warning" size="16" color="#D97706"/> 存疑字段</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.uncertainFields}}" wx:key="key">
           <text class="detail-key">{{item.key}}</text>
@@ -41,14 +43,14 @@
 
   <block wx:elif="{{report.reportType === 'healthReport'}}">
     <view class="risk-card" wx:if="{{result.abnormalItems && result.abnormalItems.length}}">
-      <view class="risk-title">⚠️ 异常指标</view>
+      <view class="risk-title"><icon name="warning" size="16" color="#DC2626"/> 异常指标</view>
       <view class="detail-row" wx:for="{{result.abnormalItems}}" wx:key="name">
         <text class="detail-key">{{item.name}}</text>
         <text class="detail-val warn">{{item.value}} {{item.direction}} (参考: {{item.ref}})</text>
       </view>
     </view>
     <view class="detail-section">
-      <view class="detail-section-title">✅ 正常指标</view>
+      <view class="detail-section-title"><icon name="check" size="16" color="#059669"/> 正常指标</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.normalItems}}" wx:key="name">
           <text class="detail-key">{{item.name}}</text>
@@ -57,7 +59,7 @@
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.explanations && result.explanations.length}}">
-      <view class="detail-section-title">📖 指标解释</view>
+      <view class="detail-section-title"><icon name="book" size="16" color="#475569"/> 指标解释</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.explanations}}" wx:key="name">
           <text class="detail-key">{{item.name}}</text>
@@ -66,13 +68,13 @@
       </view>
     </view>
     <view class="suggest-card" wx:if="{{result.focusPoints && result.focusPoints.length}}">
-      <view class="suggest-title">🔍 重点关注</view>
+      <view class="suggest-title"><icon name="search" size="16" color="#D97706"/> 重点关注</view>
       <view class="suggest-list">
         <view class="suggest-list-item" wx:for="{{result.focusPoints}}" wx:key="index">• {{item.text}}</view>
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.suggestedQuestions && result.suggestedQuestions.length}}">
-      <view class="detail-section-title">💬 建议咨询医生</view>
+      <view class="detail-section-title"><icon name="chat" size="16" color="#2563EB"/> 建议咨询医生</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.suggestedQuestions}}" wx:key="index">
           <text class="detail-val">{{item.text}}</text>
@@ -83,7 +85,7 @@
 
   <block wx:elif="{{report.reportType === 'medicineReport'}}">
     <view class="detail-section">
-      <view class="detail-section-title">💊 药品信息</view>
+      <view class="detail-section-title"><icon name="pill" size="16" color="#2563EB"/> 药品信息</view>
       <view class="detail-card">
         <view class="detail-row"><text class="detail-key">药品名称</text><text class="detail-val gold">{{result.medicineName}}</text></view>
         <view class="detail-row"><text class="detail-key">成分</text><text class="detail-val">{{result.ingredients}}</text></view>
@@ -93,11 +95,11 @@
       </view>
     </view>
     <view class="risk-card" wx:if="{{result.contraindications && result.contraindications.length}}">
-      <view class="risk-title">🚫 禁忌</view>
+      <view class="risk-title"><icon name="close" size="16" color="#DC2626"/> 禁忌</view>
       <view class="risk-text" wx:for="{{result.contraindications}}" wx:key="index">• {{item.text}}</view>
     </view>
     <view class="detail-section" wx:if="{{result.sideEffects && result.sideEffects.length}}">
-      <view class="detail-section-title">⚡ 不良反应</view>
+      <view class="detail-section-title"><icon name="warning" size="16" color="#D97706"/> 不良反应</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.sideEffects}}" wx:key="index">
           <text class="detail-val warn">• {{item.text}}</text>
@@ -105,7 +107,7 @@
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.specialGroups && result.specialGroups.length}}">
-      <view class="detail-section-title">👥 特殊人群</view>
+      <view class="detail-section-title"><icon name="user" size="16" color="#475569"/> 特殊人群</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.specialGroups}}" wx:key="group">
           <text class="detail-key">{{item.group}}</text>
@@ -117,7 +119,7 @@
 
   <block wx:elif="{{report.reportType === 'foodLabelReport'}}">
     <view class="detail-section">
-      <view class="detail-section-title">🧪 配料表</view>
+      <view class="detail-section-title"><icon name="testTube" size="16" color="#059669"/> 配料表</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.ingredients}}" wx:key="index">
           <text class="detail-val">{{item.text}}</text>
@@ -125,7 +127,7 @@
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.nutrition}}">
-      <view class="detail-section-title">📊 营养成分</view>
+      <view class="detail-section-title"><icon name="chart" size="16" color="#2563EB"/> 营养成分</view>
       <view class="detail-card">
         <view class="detail-row" wx:if="{{result.nutrition.calories}}"><text class="detail-key">热量</text><text class="detail-val">{{result.nutrition.calories}}</text></view>
         <view class="detail-row" wx:if="{{result.nutrition.sugar}}"><text class="detail-key">糖</text><text class="detail-val">{{result.nutrition.sugar}}</text></view>
@@ -135,7 +137,7 @@
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.sugarFatSodiumAnalysis}}">
-      <view class="detail-section-title">⚖️ 糖脂钠评估</view>
+      <view class="detail-section-title"><icon name="target" size="16" color="#475569"/> 糖脂钠含量评估</view>
       <view class="detail-card">
         <view class="detail-row" wx:if="{{result.sugarFatSodiumAnalysis.sugar}}"><text class="detail-key">糖</text><text class="detail-val {{result.sugarFatSodiumAnalysis.sugar === '高' ? 'warn' : 'green'}}">{{result.sugarFatSodiumAnalysis.sugar}}</text></view>
         <view class="detail-row" wx:if="{{result.sugarFatSodiumAnalysis.fat}}"><text class="detail-key">脂肪</text><text class="detail-val {{result.sugarFatSodiumAnalysis.fat === '高' ? 'warn' : 'green'}}">{{result.sugarFatSodiumAnalysis.fat}}</text></view>
@@ -143,18 +145,18 @@
       </view>
     </view>
     <view class="risk-card" wx:if="{{result.allergenWarnings && result.allergenWarnings.length}}">
-      <view class="risk-title">⚠️ 过敏原警告</view>
+      <view class="risk-title"><icon name="warning" size="16" color="#DC2626"/> 过敏原警告</view>
       <view class="risk-text" wx:for="{{result.allergenWarnings}}" wx:key="index">• {{item.text}}</view>
     </view>
     <view class="suggest-card" wx:if="{{result.purchaseAdvice}}">
-      <view class="suggest-title">💡 购买建议</view>
+      <view class="suggest-title"><icon name="sparkle" size="16" color="#D97706"/> 购买建议</view>
       <view class="suggest-list-item">{{result.purchaseAdvice}}</view>
     </view>
   </block>
 
   <block wx:elif="{{report.reportType === 'imageRepair'}}">
     <view class="detail-section">
-      <view class="detail-section-title">🖼️ 修复前后对比</view>
+      <view class="detail-section-title"><icon name="image" size="16" color="#D97706"/> 修复前后对比</view>
       <view class="compare-card">
         <view class="compare-item"><text class="compare-label">修复前</text><text class="compare-text">{{result.beforeAfter.before}}</text></view>
         <view class="compare-arrow">→</view>
@@ -162,7 +164,7 @@
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.repairTypes && result.repairTypes.length}}">
-      <view class="detail-section-title">🔧 修复详情</view>
+      <view class="detail-section-title"><icon name="settings" size="16" color="#475569"/> 修复详情</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.repairTypes}}" wx:key="type">
           <text class="detail-key">{{item.type}}</text>
@@ -171,7 +173,7 @@
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.outputResolution}}">
-      <view class="detail-section-title">📐 输出分辨率</view>
+      <view class="detail-section-title"><icon name="target" size="16" color="#475569"/> 输出分辨率</view>
       <view class="detail-card">
         <view class="detail-row"><text class="detail-key">分辨率</text><text class="detail-val green">{{result.outputResolution}}</text></view>
       </view>
@@ -180,13 +182,13 @@
 
   <block wx:elif="{{report.reportType === 'spaceDesign'}}">
     <view class="detail-section">
-      <view class="detail-section-title">🎨 推荐风格</view>
+      <view class="detail-section-title"><icon name="palette" size="16" color="#6366F1"/> 推荐风格</view>
       <view class="detail-card">
         <view class="detail-row"><text class="detail-key">风格</text><text class="detail-val gold">{{result.style}}</text></view>
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.spaceProblems && result.spaceProblems.length}}">
-      <view class="detail-section-title">🔍 空间问题</view>
+      <view class="detail-section-title"><icon name="search" size="16" color="#D97706"/> 空间问题分析</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.spaceProblems}}" wx:key="index">
           <text class="detail-val">• {{item.text}}</text>
@@ -194,13 +196,13 @@
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.colorPlan && result.colorPlan.length}}">
-      <view class="detail-section-title">🎨 配色方案</view>
+      <view class="detail-section-title"><icon name="palette" size="16" color="#6366F1"/> 配色方案</view>
       <view class="color-palette">
         <view class="color-swatch" wx:for="{{result.colorPlan}}" wx:key="index" style="background:{{item}}"></view>
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.furnitureAdvice && result.furnitureAdvice.length}}">
-      <view class="detail-section-title">🛋️ 家具推荐</view>
+      <view class="detail-section-title"><icon name="sofa" size="16" color="#6366F1"/> 家具推荐</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.furnitureAdvice}}" wx:key="name">
           <text class="detail-key">{{item.name}}</text>
@@ -209,7 +211,7 @@
       </view>
     </view>
     <view class="budget-card" wx:if="{{result.budgetRange}}">
-      <view class="budget-title">💰 预算估算</view>
+      <view class="budget-title"><icon name="coins" size="16" color="#2563EB"/> 预算估算</view>
       <view class="budget-range">{{result.budgetRange}}</view>
       <view class="budget-note" wx:if="{{result.softDecorationAdvice && result.softDecorationAdvice.length}}">含硬装+软装，不含家电</view>
     </view>
@@ -217,7 +219,7 @@
 
   <block wx:elif="{{report.reportType === 'ecommerceReport'}}">
     <view class="detail-section" wx:if="{{result.sellingPoints && result.sellingPoints.length}}">
-      <view class="detail-section-title">💎 核心卖点</view>
+      <view class="detail-section-title"><icon name="gem" size="16" color="#EA580C"/> 核心卖点</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.sellingPoints}}" wx:key="index">
           <text class="detail-val gold">• {{item.text}}</text>
@@ -225,7 +227,7 @@
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.mainImageAdvice && result.mainImageAdvice.length}}">
-      <view class="detail-section-title">📸 主图建议</view>
+      <view class="detail-section-title"><icon name="camera" size="16" color="#B87300"/> 主图建议</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.mainImageAdvice}}" wx:key="index">
           <text class="detail-val">• {{item.text}}</text>
@@ -233,7 +235,7 @@
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.backgroundAdvice && result.backgroundAdvice.length}}">
-      <view class="detail-section-title">🖼️ 背景建议</view>
+      <view class="detail-section-title"><icon name="image" size="16" color="#D97706"/> 背景建议</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.backgroundAdvice}}" wx:key="index">
           <text class="detail-val">• {{item.text}}</text>
@@ -241,7 +243,7 @@
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.platformAdvice && result.platformAdvice.length}}">
-      <view class="detail-section-title">🏪 平台适配</view>
+      <view class="detail-section-title"><icon name="store" size="16" color="#EA580C"/> 平台适配</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.platformAdvice}}" wx:key="platform">
           <text class="detail-key">{{item.platform}}</text>
@@ -253,7 +255,7 @@
 
   <block wx:elif="{{report.reportType === 'lifeIdentify'}}">
     <view class="detail-section" wx:if="{{result.possibleNames && result.possibleNames.length}}">
-      <view class="detail-section-title">🔍 识别结果</view>
+      <view class="detail-section-title"><icon name="search" size="16" color="#D97706"/> 识别结果</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.possibleNames}}" wx:key="name">
           <text class="detail-key">{{item.name}}</text>
@@ -262,7 +264,7 @@
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.visibleFeatures && result.visibleFeatures.length}}">
-      <view class="detail-section-title">👁️ 可见特征</view>
+      <view class="detail-section-title"><icon name="eye" size="16" color="#059669"/> 可见特征</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.visibleFeatures}}" wx:key="index">
           <text class="detail-val">• {{item.text}}</text>
@@ -270,7 +272,7 @@
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.similarObjects && result.similarObjects.length}}">
-      <view class="detail-section-title">🔄 相似对象</view>
+      <view class="detail-section-title"><icon name="refresh" size="16" color="#475569"/> 相似对象</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.similarObjects}}" wx:key="name">
           <text class="detail-key">{{item.name}} ({{item.confidence}}%)</text>
@@ -279,11 +281,11 @@
       </view>
     </view>
     <view class="suggest-card" wx:if="{{result.relatedKnowledge}}">
-      <view class="suggest-title">📚 相关知识</view>
+      <view class="suggest-title"><icon name="book" size="16" color="#475569"/> 相关知识</view>
       <view class="suggest-list-item">{{result.relatedKnowledge}}</view>
     </view>
     <view class="suggest-card" wx:if="{{result.careOrUsageAdvice && result.careOrUsageAdvice.length}}">
-      <view class="suggest-title">🌱 养护建议</view>
+      <view class="suggest-title"><icon name="leaf" size="16" color="#059669"/> 养护建议</view>
       <view class="suggest-list">
         <view class="suggest-list-item" wx:for="{{result.careOrUsageAdvice}}" wx:key="index">• {{item.text}}</view>
       </view>
@@ -292,13 +294,13 @@
 
   <block wx:elif="{{report.reportType === 'generalAnalysis'}}">
     <view class="detail-section">
-      <view class="detail-section-title">📝 图片描述</view>
+      <view class="detail-section-title"><icon name="document" size="16" color="#475569"/> 图片描述</view>
       <view class="detail-card">
         <view class="detail-row"><text class="detail-val">{{result.imageDescription}}</text></view>
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.possibleScenes && result.possibleScenes.length}}">
-      <view class="detail-section-title">🎯 可能场景</view>
+      <view class="detail-section-title"><icon name="target" size="16" color="#475569"/> 可能场景</view>
       <view class="detail-card">
         <view class="detail-row" wx:for="{{result.possibleScenes}}" wx:key="name">
           <text class="detail-key">{{item.name}}</text>
@@ -307,17 +309,17 @@
       </view>
     </view>
     <view class="detail-section" wx:if="{{result.candidateCategories && result.candidateCategories.length}}">
-      <view class="detail-section-title">🏷️ 候选分类</view>
+      <view class="detail-section-title"><icon name="tag" size="16" color="#B87300"/> 候选分类</view>
       <view class="tag-list">
         <view class="tag tag-gold" wx:for="{{result.candidateCategories}}" wx:key="index">{{item.text}}</view>
       </view>
     </view>
     <view class="validation-card" wx:if="{{result.uncertaintyReason}}">
-      <view class="validation-title">❓ 不确定原因</view>
+      <view class="detail-section-title"><icon name="warning" size="16" color="#D97706"/> 不确定原因</view>
       <view class="validation-text">{{result.uncertaintyReason}}</view>
     </view>
     <view class="suggest-card" wx:if="{{result.suggestedNextActions && result.suggestedNextActions.length}}">
-      <view class="suggest-title">➡️ 建议下一步</view>
+      <view class="suggest-title"><icon name="chevronRight" size="16" color="#D97706"/> 建议下一步</view>
       <view class="suggest-list">
         <view class="suggest-list-item" wx:for="{{result.suggestedNextActions}}" wx:key="index" bindtap="goToScene" data-scene-id="{{item.sceneId}}">• {{item.text}}</view>
       </view>
@@ -325,16 +327,16 @@
   </block>
 
   <view class="detail-section" wx:if="{{result.warnings && result.warnings.length}}">
-    <view class="detail-section-title">⚠️ 警告</view>
+    <view class="detail-section-title"><icon name="warning" size="16" color="#DC2626"/> 警告</view>
     <view class="detail-card">
       <view class="detail-row" wx:for="{{result.warnings}}" wx:key="index">
-        <text class="detail-val {{item.level === 'high' ? 'warn' : ''}}">{{item.level === 'high' ? '🔴' : '🟡'}} {{item.text}}</text>
+        <text class="detail-val {{item.level === 'high' ? 'warn' : ''}}"><icon name="{{item.level === 'high' ? 'close' : 'warning'}}" size="12" color="{{item.level === 'high' ? '#DC2626' : '#D97706'}}"/> {{item.text}}</text>
       </view>
     </view>
   </view>
 
   <view class="detail-section" wx:if="{{result.actions && result.actions.length}}">
-    <view class="detail-section-title">📌 建议操作</view>
+    <view class="detail-section-title"><icon name="clipboard" size="16" color="#475569"/> 建议操作</view>
     <view class="detail-card">
       <view class="detail-row" wx:for="{{result.actions}}" wx:key="index">
         <text class="detail-val">• {{item.text}}</text>
@@ -343,18 +345,18 @@
   </view>
 
   <view class="validation-card" wx:if="{{!report.validationValid}}">
-    <view class="validation-title">⚠️ 数据校验</view>
+    <view class="validation-title"><icon name="warning" size="16" color="#DC2626"/> 数据校验</view>
     <view class="validation-text">部分数据未通过校验</view>
     <view class="validation-error-item" wx:for="{{report.validationErrors}}" wx:key="field">{{item.field}}: {{item.error}}</view>
   </view>
 
   <view class="footer">
     <view class="footer-btn-row">
-      <view class="footer-btn primary" bindtap="shareReport">📤 分享报告</view>
-      <view class="footer-btn outline" bindtap="exportReport">📄 导出</view>
+      <view class="footer-btn primary" bindtap="shareReport"><icon name="share" size="16" color="#FFFFFF"/> 分享报告</view>
+      <view class="footer-btn outline" bindtap="exportReport"><icon name="document" size="16" color="#5A6478"/> 导出</view>
     </view>
     <view class="footer-btn-row">
-      <view class="footer-btn gold" bindtap="reProcess">🔄 重新处理</view>
+      <view class="footer-btn gold" bindtap="reProcess"><icon name="refresh" size="16" color="#FFFFFF"/> 重新处理</view>
     </view>
   </view>
 </view>

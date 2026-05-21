@@ -67,7 +67,6 @@ const reportManager = {
       createdAt: task.createdAt,
       costCredits: task.costCredits,
       sceneName: s ? s.name : '',
-      icon: s ? s.icon : '📄',
       iconBg: s ? s.iconBg : '#F1F3F5',
       status: task.status,
       routeResult: task.routeResult || null,

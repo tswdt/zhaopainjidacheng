@@ -29,7 +29,7 @@ Page({
   shareReport() {
     wx.showModal({
       title: '分享报告',
-      content: '分享功能开发中，敬请期待',
+      content: '分享功能即将上线，敬请期待',
       showCancel: false
     });
   },
@@ -37,7 +37,7 @@ Page({
   exportReport() {
     wx.showModal({
       title: '导出报告',
-      content: 'PDF导出功能开发中，敬请期待',
+      content: 'PDF导出功能即将上线，敬请期待',
       showCancel: false
     });
   },

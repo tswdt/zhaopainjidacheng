@@ -7,9 +7,22 @@ Page({
   },
 
   onLoad() {
-    const quickIds = ['invoiceRecognition', 'medicalReport', 'drugInstruction', 'oldPhotoRepair', 'plantIdentify', 'productImageOpt'];
-    const quickScenes = quickIds.map(id => sceneRegistry[id]).filter(Boolean);
-    this.setData({ quickScenes });
+    var iconMap = {
+      invoiceRecognition: { iconName: 'document', iconColor: '#475569' },
+      medicalReport: { iconName: 'chart', iconColor: '#DC2626' },
+      drugInstruction: { iconName: 'pill', iconColor: '#2563EB' },
+      oldPhotoRepair: { iconName: 'image', iconColor: '#D97706' },
+      plantIdentify: { iconName: 'leaf', iconColor: '#059669' },
+      productImageOpt: { iconName: 'gem', iconColor: '#EA580C' }
+    };
+    var quickIds = ['invoiceRecognition', 'medicalReport', 'drugInstruction', 'oldPhotoRepair', 'plantIdentify', 'productImageOpt'];
+    var quickScenes = quickIds.map(function(id) {
+      var scene = sceneRegistry[id];
+      if (!scene) return null;
+      var iconInfo = iconMap[id] || { iconName: 'document', iconColor: '#475569' };
+      return Object.assign({}, scene, iconInfo);
+    }).filter(Boolean);
+    this.setData({ quickScenes: quickScenes });
   },
 
   takePhoto() {
@@ -17,10 +30,10 @@ Page({
       count: 1,
       mediaType: ['image'],
       sourceType: ['camera'],
-      success: () => {
+      success: function() {
         wx.navigateTo({ url: '/pages/upload/index?directType=image' });
       },
-      fail: () => {
+      fail: function() {
         wx.navigateTo({ url: '/pages/upload/index?directType=image' });
       }
     });
@@ -31,10 +44,10 @@ Page({
       count: 1,
       mediaType: ['image'],
       sourceType: ['album'],
-      success: () => {
+      success: function() {
         wx.navigateTo({ url: '/pages/upload/index?directType=image' });
       },
-      fail: () => {
+      fail: function() {
         wx.navigateTo({ url: '/pages/upload/index?directType=image' });
       }
     });
@@ -44,10 +57,10 @@ Page({
     wx.chooseMessageFile({
       count: 1,
       type: 'file',
-      success: () => {
+      success: function() {
         wx.navigateTo({ url: '/pages/upload/index?directType=document' });
       },
-      fail: () => {
+      fail: function() {
         wx.navigateTo({ url: '/pages/upload/index?directType=document' });
       }
     });
@@ -58,7 +71,7 @@ Page({
   },
 
   selectScene(e) {
-    const sceneId = e.currentTarget.dataset.sceneId;
+    var sceneId = e.currentTarget.dataset.sceneId;
     if (sceneId) {
       wx.navigateTo({ url: '/pages/upload/index?sceneId=' + sceneId });
     }

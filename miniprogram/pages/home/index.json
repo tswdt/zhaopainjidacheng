@@ -1,4 +1,7 @@
 {
-  "navigationBarTitleText": "AI视觉平台",
-  "enablePullDownRefresh": false
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "icon": "/components/icon/icon"
+  }
 }

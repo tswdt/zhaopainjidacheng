@@ -1,5 +1,5 @@
 .search-bar {
-  padding: 16rpx var(--spacing-page);
+  padding: var(--spacing-sm) var(--spacing-page);
   background: var(--bg-card);
 }
 
@@ -8,37 +8,66 @@
   align-items: center;
   background: #F8F9FA;
   border-radius: 28rpx;
-  padding: 16rpx 24rpx;
+  padding: var(--spacing-sm) var(--spacing-md);
+  min-height: 80rpx;
+  border: 2rpx solid transparent;
+  transition: border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out);
 }
 
-.search-icon {
-  font-size: 16px;
-  margin-right: 12rpx;
+.search-input-wrap.input-focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4rpx rgba(184, 115, 0, 0.12);
+  background: #FFFFFF;
 }
 
 .search-input {
   flex: 1;
   font-size: var(--font-size-base);
   color: var(--text-primary);
+  margin-left: 12rpx;
+}
+
+.search-placeholder {
+  color: var(--text-tertiary);
+}
+
+.search-clear {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  background: #C4C9D4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8rpx;
+  flex-shrink: 0;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.search-clear:active {
+  background: #9CA3AF;
 }
 
 .category-list {
-  padding: 16rpx 0;
+  padding: var(--spacing-sm) 0;
 }
 
 .category {
-  margin-bottom: 16rpx;
+  margin-bottom: var(--spacing-sm);
 }
 
 .category-title {
   font-size: var(--font-size-md);
   font-weight: 700;
   color: var(--text-primary);
-  padding: 16rpx var(--spacing-page) 8rpx;
+  padding: var(--spacing-sm) var(--spacing-page) 8rpx;
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
 }
 
 .scene-list {
-  padding: 0 16rpx;
+  padding: 0 var(--spacing-sm);
 }
 
 .scene-item {
@@ -46,24 +75,25 @@
   align-items: center;
   background: var(--bg-card);
   border-radius: var(--radius-card);
-  padding: 24rpx;
+  padding: var(--spacing-md);
   margin-bottom: var(--spacing-card-gap);
   box-shadow: var(--shadow-card);
-  transition: opacity 0.15s;
+  min-height: 100rpx;
+  transition: transform var(--duration-fast) var(--ease-out), opacity var(--duration-fast) var(--ease-out);
 }
 
 .scene-item:active {
   opacity: 0.85;
+  transform: scale(0.97);
 }
 
 .scene-item-icon {
-  width: 72rpx;
-  height: 72rpx;
-  border-radius: 18rpx;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
   margin-right: 20rpx;
   flex-shrink: 0;
 }

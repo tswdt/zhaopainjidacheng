@@ -1,17 +1,25 @@
 <view class="page">
   <view class="search-bar">
-    <view class="search-input-wrap">
-      <view class="search-icon">🔍</view>
-      <input class="search-input" placeholder="搜索场景..." bindinput="onSearch" value="{{searchText}}" />
+    <view class="search-input-wrap {{searchFocused ? 'input-focus' : ''}}">
+      <icon name="search" size="16" color="{{searchFocused ? '#B87300' : '#8A94A6'}}"/>
+      <input class="search-input" placeholder="搜索场景..." bindinput="onSearch" bindfocus="onSearchFocus" bindblur="onSearchBlur" value="{{searchText}}" placeholder-class="search-placeholder"/>
+      <view class="search-clear" wx:if="{{searchText}}" bindtap="clearSearch">
+        <icon name="close" size="12" color="#FFFFFF"/>
+      </view>
     </view>
   </view>
 
-  <view class="category-list">
+  <view class="category-list" wx:if="{{categories.length}}">
     <view class="category" wx:for="{{categories}}" wx:key="key">
-      <view class="category-title">{{item.icon}} {{item.name}}</view>
+      <view class="category-title">
+        <icon name="{{item.iconName}}" size="16" color="{{item.iconColor}}"/>
+        <text>{{item.name}}</text>
+      </view>
       <view class="scene-list">
         <view class="scene-item" wx:for="{{item.scenes}}" wx:key="sceneId" bindtap="selectScene" data-scene-id="{{item.sceneId}}">
-          <view class="scene-item-icon" style="background:{{item.iconBg}}">{{item.icon}}</view>
+          <view class="scene-item-icon" style="background:{{item.iconBg}}">
+            <icon name="{{item.iconName}}" size="20" color="{{item.iconColor}}"/>
+          </view>
           <view class="scene-item-info">
             <view class="scene-item-name">{{item.name}}</view>
             <view class="scene-item-desc">{{item.description}}</view>
@@ -20,5 +28,11 @@
         </view>
       </view>
     </view>
+  </view>
+
+  <view class="empty-search" wx:elif="{{searchText && !categories.length}}">
+    <icon name="search" size="36" color="#B0B8C8"/>
+    <view class="empty-search-title">未找到相关场景</view>
+    <view class="empty-search-desc">试试其他关键词，如"发票"、"体检"、"修复"</view>
   </view>
 </view>

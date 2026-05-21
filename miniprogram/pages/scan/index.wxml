@@ -6,22 +6,30 @@
 
   <view class="scan-grid">
     <view class="scan-card" bindtap="takePhoto">
-      <view class="scan-card-icon">📸</view>
+      <view class="scan-card-icon">
+        <icon name="camera" size="26" color="#B87300"/>
+      </view>
       <view class="scan-card-name">拍照识别</view>
       <view class="scan-card-desc">实时拍照，即时分析</view>
     </view>
     <view class="scan-card" bindtap="chooseImage">
-      <view class="scan-card-icon">🖼️</view>
+      <view class="scan-card-icon">
+        <icon name="image" size="26" color="#2563EB"/>
+      </view>
       <view class="scan-card-name">上传图片</view>
       <view class="scan-card-desc">从相册选择图片</view>
     </view>
     <view class="scan-card" bindtap="chooseDocument">
-      <view class="scan-card-icon">📄</view>
+      <view class="scan-card-icon">
+        <icon name="document" size="26" color="#059669"/>
+      </view>
       <view class="scan-card-name">上传文档</view>
       <view class="scan-card-desc">PDF/Word等文档</view>
     </view>
     <view class="scan-card" bindtap="batchProcess">
-      <view class="scan-card-icon">📁</view>
+      <view class="scan-card-icon">
+        <icon name="folder" size="26" color="#6366F1"/>
+      </view>
       <view class="scan-card-name">批量处理</view>
       <view class="scan-card-desc">多文件同时处理</view>
     </view>
@@ -30,7 +38,9 @@
   <view class="section-title">快速场景</view>
   <view class="quick-grid">
     <view class="quick-card" wx:for="{{quickScenes}}" wx:key="sceneId" bindtap="selectScene" data-scene-id="{{item.sceneId}}">
-      <view class="quick-icon" style="background:{{item.iconBg}}">{{item.icon}}</view>
+      <view class="quick-icon" style="background:{{item.iconBg}}">
+        <icon name="{{item.iconName}}" size="20" color="{{item.iconColor}}"/>
+      </view>
       <view class="quick-name">{{item.name}}</view>
     </view>
   </view>
